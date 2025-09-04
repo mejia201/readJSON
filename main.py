@@ -66,7 +66,10 @@ if archivos:
                 iva = tributo["valor"]
                 break
 
-        total = data["resumen"]["totalPagar"]
+        # total = data["resumen"]["totalPagar"]
+
+        total = data.get("resumen", {}).get("totalPagar") \
+            or data.get("resumen", {}).get("montoTotalOperacion", 0.00)
 
         fila = [
             fecha,
