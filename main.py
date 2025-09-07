@@ -97,6 +97,13 @@ if archivos:
         ]
         df = pd.DataFrame(filas, columns=columnas)
 
+        # Convertir a datetime y ordenar
+        df["Fecha"] = pd.to_datetime(df["Fecha"], format="%d/%m/%Y")
+        df = df.sort_values(by="Fecha")
+
+        # Volver a mostrarla en formato dd/mm/yyyy:
+        df["Fecha"] = df["Fecha"].dt.strftime("%d/%m/%Y")
+
         buffer = io.BytesIO()
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
             df.to_excel(writer, index=False)
